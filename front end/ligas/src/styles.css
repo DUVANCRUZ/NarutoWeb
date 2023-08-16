@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-image: url('./assets/images/fondo.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Para mantener el fondo en su lugar mientras se desplaza la página */
+    /* Agrega otros estilos según sea necesario */
+  }

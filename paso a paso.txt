@@ -1,0 +1,6 @@
+
+Instalar Flask: Si no tienes Flask instalado (como mencioné en el paso anterior), puedes instalarlo ejecutando el siguiente comando:
+pip install Flask
+
+Instalar pymongo: Para interactuar con MongoDB desde Flask, necesitarás el controlador de Python llamado pymongo. Instálalo ejecutando el siguiente comando:
+pip install pymongo

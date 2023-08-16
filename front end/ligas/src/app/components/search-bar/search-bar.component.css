@@ -1,0 +1,56 @@
+.search-bar {
+    display: flex;
+    align-items: center; 
+    justify-content:center;
+  }
+
+  .button {
+    background-color:  #00162d; /* Cambia el color de fondo a azul Chidori */
+    color: #fff;
+    padding: 12px 20px; /* Aumenta el padding horizontal */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+    border-bottom: 5px solid #188791;
+    border-left: 5px solid #188791;
+    border-right: 5px solid #188791;  
+    width: 100px;
+    height: 50px;
+  }
+  
+  .button:hover {
+    background-color:  #00162d;
+    width: 120px;
+    height: 70px; 
+    border-bottom: 5px solid #188791;
+    border-left: 5px solid #188791;
+    border-right: 5px solid #188791;
+  }
+  
+  .input {
+    background-color: #188791; /* Cambia el color de fondo a azul Chidori */
+    color: #fff;
+    border: none;/* Ajusta el padding a tus necesidades */
+    margin: 0 4px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Agrega transición para suavizar los cambios */
+    border-bottom: 5px solid #00162d;
+    border-left: 5px solid #00162d;
+    border-right: 5px solid #00162d;
+    font-size: 14px; /* Ajusta el tamaño de fuente a tus necesidades */
+    outline: none;
+    width: 180px; 
+    height: 40px; /* Quita el borde predeterminado en el enfoque */
+  }
+  
+  /* Estilos al pasar el ratón por encima */
+  .input:hover {
+    background-color: #00162d; 
+    width: 200px; 
+    height: 60px;
+    border-bottom: 5px solid #188791;
+    border-left: 5px solid #188791;
+    border-right: 5px solid #188791;/* Cambia el color de fondo al hacer hover */
+  }

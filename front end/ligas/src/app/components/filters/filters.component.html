@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="filters-container">
+    <div class="filter">
+      <label>Rank:</label>
+      <select class="select" [(ngModel)]="ranks" (ngModelChange)="updateFilters()">
+        <option *ngFor="let rank of rankOptions" [value]="rank">{{ rank }}</option>
+      </select>
+    </div>
+      
+    <div class="filter">
+      <label>Sex:</label>
+      <select class="select" [(ngModel)]="sex" (ngModelChange)="updateFilters()">
+        <option *ngFor="let s of sexOptions" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+
+    <div class="filter">
+      <label>Clan:</label>
+      <select class="select" [(ngModel)]="clan" (ngModelChange)="updateFilters()">
+        <option *ngFor="let s of clanOptions" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+    
+    <div class="filter">
+      <label>Order:</label>
+      <select class="select" [(ngModel)]="order" (ngModelChange)="updateFilters()">
+        <option value="asc">Asc</option>
+        <option value="desc">Desc</option>
+      </select>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="button" (click)="resetFilters()">Reset Filters</button>
+  </div>
+</div>

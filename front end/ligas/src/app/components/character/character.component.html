@@ -1,0 +1,16 @@
+<div class="app-character">
+  <h3>{{ character.name }}</h3>
+  
+  <div class="character-info">
+    <!-- Mostrar la imagen principal o la imagen de reemplazo si es null o tira error 404 -->
+    <img *ngIf="character.images[0]" 
+         src="{{ character.images[0] }}" 
+         alt="{{ character.name }} Image"
+         >
+    <img *ngIf="!character.images[0]" 
+         src="../../../assets/images/imagennodisponible.jpg" 
+         alt="image no disponible">
+  </div>
+  
+  <button class="details-button" (click)="redirectToDetails(character.id)">View Details</button>
+</div>

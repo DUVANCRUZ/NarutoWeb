@@ -1,0 +1,106 @@
+from flask import Blueprint, request, jsonify, Response
+from flask_pymongo import ObjectId
+from werkzeug.security import generate_password_hash
+from bson import json_util
+from app import mongo
+
+# Crear el Blueprint para las rutas de usuarios
+user_routes = Blueprint("user_routes", __name__)
+
+@user_routes.route("/users", methods=["GET"])
+def listUsers():
+    # Obtener todos los usuarios de la base de datos
+    users = mongo.db.users.find()
+
+    # Convertir los usuarios a formato JSON
+    response = json_util.dumps(users)
+
+    # Devolver la lista de usuarios en formato JSON
+    return Response(response, mimetype="application/json")
+
+@user_routes.route("/user/<id>", methods=["PUT"])
+def putUser(id):
+    # Obtener el usuario con el ID proporcionado desde la base de datos
+    user = mongo.db.users.find_one({"_id": ObjectId(id)})
+
+    # Verificar si el usuario existe
+    if not user:
+        return jsonify({"message": "Usuario no encontrado"}), 404
+
+    # Obtener los datos enviados en la solicitud
+    data = request.json
+
+    # Actualizar los campos modificables del usuario
+    if "username" in data:
+        user["username"] = data["username"]
+    if "mail" in data:
+        user["mail"] = data["mail"]
+    if "password" in data:
+        user["password"] = generate_password_hash(data["password"])
+
+    # Actualizar el usuario en la base de datos
+    mongo.db.users.update_one({"_id": ObjectId(id)}, {"$set": user})
+
+    # Devolver una respuesta con el usuario modificado
+    return jsonify(user), 200
+
+@user_routes.route("/createUser", methods=["POST"])
+def createUser():
+    # Obtener los datos enviados en la solicitud
+    data = request.json
+    mail = data.get("mail")
+    username = data.get("username")
+    password = data.get("password")
+
+    # Verificar que se hayan proporcionado todos los datos requeridos
+    if username and mail and password:
+        # Generar el hash de la contraseña
+        hash_password = generate_password_hash(password)
+
+        # Insertar el nuevo usuario en la base de datos
+        result = mongo.db.users.insert_one({
+            "username": username,
+            "mail": mail,
+            "password": hash_password
+        })
+
+        # Obtener el ID del usuario insertado
+        id = result.inserted_id
+
+        # Construir la respuesta con el ID, username y mail del nuevo usuario
+        response = {
+            "id": str(id),
+            "username": username,
+            "mail": mail,
+            "password": hash_password
+        }
+
+        # Devolver la respuesta con el nuevo usuario en formato JSON
+        return jsonify(response), 201
+    else:
+        # Devolver un mensaje de error si no se proporcionaron todos los datos requeridos
+        return jsonify({"message": "Faltan datos requeridos"}), 400
+
+@user_routes.route("/user/<id>", methods=["DELETE"])  
+def deleteUser(id):
+    # Obtener el usuario con el ID proporcionado desde la base de datos
+    user = mongo.db.users.find_one({"_id": ObjectId(id)})
+
+    # Verificar si el usuario existe
+    if not user:
+        return jsonify({"message": "Usuario no encontrado"}), 404
+
+    # Eliminar el usuario de la base de datos
+    mongo.db.users.delete_one({"_id": ObjectId(id)})
+
+    # Devolver una respuesta con el mensaje de éxito
+    return jsonify({"message": "Usuario eliminado correctamente"}), 200
+
+@user_routes.errorhandler(404)
+def not_found(error=None):
+    response = jsonify({
+        "message": "Recurso no encontrado " + request.url,
+        "status": 404
+    })
+    response.status_code = 404
+    return response

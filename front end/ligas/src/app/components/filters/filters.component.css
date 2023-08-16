@@ -1,0 +1,94 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color:white;
+    margin: 30px;
+}
+.filters-container {
+  display: flex;
+  flex-direction: row;
+
+}
+.filter{
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons{
+    display: flex;   
+}
+
+.button {
+  background-color:  #00162d; /* Cambia el color de fondo a azul Chidori */
+  color: #fff;
+  padding: 12px 20px; /* Aumenta el padding horizontal */
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 15px;
+  border-bottom: 5px solid #188791;
+  border-left: 5px solid #188791;
+  border-right: 5px solid #188791;  
+  width: 140px;
+  height: 50px;
+}
+
+.button:hover {
+  background-color:  #00162d;
+  width: 150px;
+  height: 70px; 
+  border-bottom: 5px solid #188791;;
+  border-left: 5px solid #188791;;
+  border-right: 5px solid #188791;;  /* Cambia el color de fondo al hacer hover */
+}
+
+
+.select {
+    background-color: #188791; /* Cambia el color de fondo a azul Chidori */
+    color: #fff;
+    border: none;
+    padding: 8px 16px; /* Ajusta el padding a tus necesidades */
+    margin: 0 4px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Agrega transición para suavizar los cambios */
+    border-bottom: 5px solid #00162d;
+    border-left: 5px solid #00162d;
+    border-right: 5px solid #00162d;
+    font-size: 14px; /* Ajusta el tamaño de fuente a tus necesidades */
+    outline: none;
+    width: 180px; 
+    height: 40px; /* Quita el borde predeterminado en el enfoque */
+  }
+  
+  /* Estilos al pasar el ratón por encima */
+  .select:hover {
+    background-color: #00162d; 
+    width: 200px; 
+    height: 60px;
+    border-bottom: 5px solid #188791;
+    border-left: 5px solid #188791;
+    border-right: 5px solid #188791;/* Cambia el color de fondo al hacer hover */
+  }
+  
+  /* Estilos cuando el select tiene una opción seleccionada */
+  .select:focus {
+    background-color: #00162d; 
+    border-bottom: 5px solid #188791;
+    border-left: 5px solid #188791;
+    border-right: 5px solid #188791/* Agrega una sombra al seleccionar */
+  }
+  
+  .select option:checked {
+    background-color: #00162d;;  /* Cambia el color de fondo de la opción seleccionada */
+    color: #fff;
+    background-color: #00162d;;  /* Cambia el color de fondo de la opción seleccionada */
+    font-weight: bold;
+    border-bottom: 5px solid #188791;
+    border-left: 5px solid #188791;
+    border-right: 5px solid #188791
+  }
+
+  
+  
