@@ -2,15 +2,27 @@
   <h3>{{ character.name }}</h3>
   
   <div class="character-info">
-    <!-- Mostrar la imagen principal o la imagen de reemplazo si es null o tira error 404 -->
     <img *ngIf="character.images[0]" 
          src="{{ character.images[0] }}" 
-         alt="{{ character.name }} Image"
-         >
+         alt="{{ character.name }} Image">
     <img *ngIf="!character.images[0]" 
          src="../../../assets/images/imagennodisponible.jpg" 
          alt="image no disponible">
   </div>
-  
+
+  <!-- Botón de corazón favorito -->
+  <button class="favorite-button" (click)="toggleFavorite()"
+        [ngClass]="{
+          'favorite': character.favorite,
+          'not-favorite': !character.favorite
+        }">
+    <i class="fa"
+       [ngClass]="{
+         'fa-heart': character.favorite,
+         'fa-heart-o': !character.favorite
+       }"></i>
+    {{ character.favorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+  </button>
+
   <button class="details-button" (click)="redirectToDetails(character.id)">View Details</button>
 </div>

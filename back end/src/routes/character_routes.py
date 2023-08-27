@@ -2,6 +2,8 @@ import requests
 from flask import Blueprint, jsonify, request, Response
 from flask_pymongo import MongoClient 
 from bson import json_util
+from bson import ObjectId
+
 
 # Crear un Blueprint para las rutas relacionadas con los personajes
 connection_str = "mongodb://localhost:27017/"
@@ -67,19 +69,20 @@ def getAppChars():
 
 @char_routes.route("/create", methods=["POST"])
 def createUser():
-    data= request.json
-    name=  data.get("name")
-    images=  data.get("images")
-    occupation=  data.get("occupation")
-    rankI=  data.get("rankI")
-    rankII=  data.get("rankII")
-    sex=  data.get("sex")
-    status=  data.get("status")
-    clan= data.get ("clan")
-    jutsu= data.get("jutsu")
+    data = request.json
+    name = data.get("name")
+    images = data.get("images")
+    occupation = data.get("occupation")
+    rankI = data.get("rankI")
+    rankII = data.get("rankII")
+    sex = data.get("sex")
+    status = data.get("status")
+    clan = data.get("clan")
+    jutsu = data.get("jutsu")
     
     if clan and jutsu and name and images and occupation and rankI and rankII and sex and status:
-        res= db.insert_one({
+        # Insertar el documento en la base de datos
+        res = db.insert_one({
             "images": [images],
             "name": name,
             "occupation": occupation,
@@ -90,11 +93,13 @@ def createUser():
             "clan": clan,
             "jutsu": [jutsu],
         })
-        id = res.inserted_id
 
-        # Construir la respuesta con el ID, username y mail del nuevo usuario
+        db.update_one({"_id": res.inserted_id}, {"$set": {"id": str(res.inserted_id)}})
+
+        
+        # Construir la respuesta con el ID, etc.
         response = {
-            "id": str(id),
+            "id": str(res.inserted_id),
             "images": images,
             "name": name,
             "occupation": occupation,
@@ -104,7 +109,6 @@ def createUser():
             "status": status,
             "jutsu": jutsu,
             "clan": clan
-            
         }
         return response
     else:
@@ -128,13 +132,22 @@ def listChars():
 #id character
 @char_routes.route("/<id>", methods=["GET"])
 def characterId(id):
+    # Buscar primero en la base de datos local de MongoDB
+    character_from_db = db.find_one({"id": id})
+
+    if character_from_db:
+        # Convertir el ObjectId a una cadena
+        character_from_db["_id"] = str(character_from_db["_id"])
+        return character_from_db
+    
+    # Si no se encuentra en la base de datos local, obtenerlo desde la API externa
     url = f"https://www.narutodb.xyz/api/character/{id}"
     response = requests.get(url)
     
-    if response.status_code==200:
+    if response.status_code == 200:
         data = response.json()
         
-        id=data.get("id")
+        id = data.get("id")
         name = data.get("name")
         rank = data.get("rank", {})
         jutsu = data.get("jutsu") 
@@ -152,13 +165,13 @@ def characterId(id):
         if isinstance(personal, list):
             occupation = "undefined"
             status = "undefined"
-            sex= "undefined"
-            clan= "undefinded"
+            sex = "undefined"
+            clan = "undefined"
         else:
             occupation = personal.get("occupation")
             status = personal.get("status")
-            sex= personal.get("sex")
-            clan= personal.get("clan")
+            sex = personal.get("sex")
+            clan = personal.get("clan")
             
         images = data.get("images", [])
 
@@ -217,3 +230,7 @@ def filterAndOrder():
         filtered_result = sorted(filtered_result, key=lambda x: x["name"].lower(), reverse=True)
 
     return jsonify(filtered_result)
+
+
+
+

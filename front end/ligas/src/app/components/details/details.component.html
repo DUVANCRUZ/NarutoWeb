@@ -1,48 +1,27 @@
-<div *ngIf="character" class="container">
-    
-    <div class="Image-container">  
-        <!-- Mostrar imágenes solo si existe al menos una -->
-        <div *ngIf="character.images && character.images.length > 0">
-            <img class="image" [src]="character.images[0]" alt="Character Image" />
-        </div>
-        <img  class="image"
-        }¿*ngIf="!character.images[0]" 
-         src="../../../assets/images/imagennodisponible.jpg" 
-         alt="image no disponible">
-  
-    </div>
-        
-        <div class="details-container"> 
-        <h1>{{ character.name }}</h1>
-        <!-- Mostrar jutsus solo si existe al menos uno -->
-        <div *ngIf="character.jutsu && character.jutsu.length > 0">
-            <button class="button" (click)="toggleJutsus()">Show/Hide Jutsus</button>
-            <ul *ngIf="showJutsus">
-              <li *ngFor="let jutsu of character.jutsu.slice(0, 5)">{{ jutsu }}</li>
-            </ul>
-          </div>
-    
-        <!-- Mostrar clan si está presente -->
-        <p *ngIf="character.clan">Clan: {{ character.clan }}</p>
-        
-        <!-- Mostrar ocupación si está presente -->
-        <p *ngIf="character.occupation">Occupation: {{ character.occupation }}</p>
-        
-        <!-- Mostrar rango I si está presente -->
-        <p *ngIf="character.rankI">Rank in Naruto: {{ character.rankI }}</p>
-        
-        <!-- Mostrar rango II si está presente -->
-        <p *ngIf="character.rankII">Rank in Naruto shippuden: {{ character.rankII }}</p>
-        
-        <!-- Mostrar sexo si está presente -->
-        <p *ngIf="character.sex">Sex: {{ character.sex }}</p>
-        
-        <!-- Mostrar status si está presente -->
-        <p *ngIf="character.status">Status: {{ character.status }}</p>
-    
-        <button class="button" routerLink="/home">Back to Home</button>
-    </div>
+<app-navbar></app-navbar>
 
-    
+<div *ngIf="character" class="container">
+  <div class="Image-container">
+    <img class="image" [src]="character.images[0]" alt="Character Image" />
   </div>
   
+  <div class="details-container">
+    <h1>{{ character.name }}</h1>
+    
+    <div *ngIf="character.jutsu && character.jutsu.length > 0">
+      <button class="button" (click)="toggleJutsus()">Show/Hide Jutsus</button>
+      <ul *ngIf="showJutsus">
+        <li *ngFor="let jutsu of character.jutsu.slice(0, 5)">{{ jutsu }}</li>
+      </ul>
+    </div>
+    
+    <p *ngIf="character.clan">Clan: {{ character.clan }}</p>
+    <p *ngIf="character.occupation">Occupation: {{ character.occupation }}</p>
+    <p *ngIf="character.rankI">Rank in Naruto: {{ character.rankI }}</p>
+    <p *ngIf="character.rankII">Rank in Naruto shippuden: {{ character.rankII }}</p>
+    <p *ngIf="character.sex">Sex: {{ character.sex }}</p>
+    <p *ngIf="character.status">Status: {{ character.status }}</p>
+    
+    <button class="button" routerLink="/home">Back to Home</button>
+  </div>
+</div>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-
 interface Character {
   clan: string | null;
   id: number;
@@ -24,7 +23,6 @@ interface Character {
 export class DetailsComponent implements OnInit {
   character: Character | undefined;
   showJutsus: boolean = false;
-  showCarousel: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,11 +31,11 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
+      const idParam = params.get('id');
+      const id = isNaN(Number(idParam)) ? idParam : Number(idParam);
       const url = `http://localhost:5000/char/${id}`;
       this.http.get<Character>(url).subscribe((character: Character) => {
         this.character = character;
-        this.showCarousel = character.images.length > 1; // Mostrar carrusel solo si hay más de una imagen
       });
     });
   }
@@ -45,5 +43,4 @@ export class DetailsComponent implements OnInit {
   toggleJutsus(): void {
     this.showJutsus = !this.showJutsus;
   }
- 
 }

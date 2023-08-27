@@ -11,10 +11,14 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { HttpClientModule } from '@angular/common/http'; 
 import { FiltersComponent } from './components/filters/filters.component';
 import { DetailsComponent } from './components/details/details.component';
-import { CreateComponent  } from './components/create/create.component';
+import { CreateComponent } from './components/create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '../environments/environment';
+import { CloudinaryModule } from '@cloudinary/ng';
+import { MyCreationsComponent } from './components/my-creations/my-creations.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { NotFoundComponent } from './components/not-found/not-found.component'; // Asegúrate de importar la versión correcta
+
 
 @NgModule({
   declarations: [
@@ -26,8 +30,11 @@ import { environment } from '../environments/environment';
     SearchBarComponent,
     FiltersComponent,
     DetailsComponent,
-    CreateComponent
-
+    CreateComponent,
+    MyCreationsComponent,
+    FavoritesComponent,
+    LandingComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -35,11 +42,9 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    CloudinaryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  
-}
+export class AppModule { }

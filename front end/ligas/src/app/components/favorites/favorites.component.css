@@ -1,0 +1,62 @@
+/* Estilos para los botones de paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .pagination button {
+    background-color:  #00162d; /* Cambia el color de fondo a azul Chidori */
+    color: #fff;
+    padding: 12px 20px; /* Aumenta el padding horizontal */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-bottom: 5px solid #188791;
+    border-left: 5px solid #188791;
+    border-right: 5px solid #188791;  
+  }
+  
+  .pagination button:hover {
+    background-color:  #188791;
+    border-bottom: 5px solid #00162d;
+    border-left: 5px solid #00162d;
+    border-right: 5px solid #00162d;  /* Cambia el color de fondo al hacer hover */
+  }
+  
+  
+  .pagination button.active {
+    background-color:  #188791;
+    border-bottom: 5px solid #00162d;
+    border-left: 5px solid #00162d;
+    border-right: 5px solid #00162d; /* Cambia el color de fondo de la página activa */
+  }
+  
+  
+  
+  .pagination button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    border: none;
+  }
+  
+  /* Estilos para la parte activa de la paginación */
+  .pagination-active {
+    font-weight: bold;
+    color: #0052cc; /* Cambia el color a azul Chidori */
+  }
+  
+  /* Estilos para el contenedor de personajes */
+  .body {
+    padding: 20px;
+  }
+  
+  .characters-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  
+  

@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+<div class="body">
+    <div class="characters-container">
+      <div *ngFor="let character of favoriteCharacters | slice: (currentPage - 1) * charactersPerPage : currentPage * charactersPerPage">
+        <app-character [character]="character" (favoriteChanged)="removeCharacterFromFavorites($event)"></app-character>
+      </div>
+    </div>
+  
+    <div class="pagination">
+      <button (click)="changePage(1)" [disabled]="currentPage === 1">Primera</button>
+      <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+      <button *ngFor="let page of getVisiblePages()" (click)="changePage(page)" [class.active]="page === currentPage">{{ page }}</button>
+      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+      <button (click)="changePage(totalPages)" [disabled]="currentPage === totalPages">Última</button>
+    </div>
+  </div>
+  

@@ -1,6 +1,7 @@
+<app-navbar></app-navbar>
 <div class="container">
   <div class="form-container">
-    <form class="form" [formGroup]="characterForm">
+    <form class="form" [formGroup]="characterForm" (ngSubmit)="submitForm()">
       <label for="name">Name:</label>
       <input type="text" id="name" formControlName="name">
       <div *ngIf="characterForm.get('name')?.hasError('required') && characterForm.get('name')?.touched">
@@ -16,22 +17,22 @@
         Occupation is required.
       </div>
 
-      <label for="rankI">Rank I:</label>
+      <label for="rankI">Rank in Naruto:</label>
       <select id="rankI" formControlName="rankI">
-        <option value="" disabled>Select Rank I</option>
+        <option value="" disabled>Select Rank in Naruto </option>
         <option *ngFor="let option of rankIOptions" [value]="option">{{ option }}</option>
       </select>
       <div *ngIf="characterForm.get('rankI')?.hasError('required') && characterForm.get('rankI')?.touched">
-        Rank I is required.
+        Rank in Naruto is required.
       </div>
 
-      <label for="rankII">Rank II:</label>
+      <label for="rankII">Rank in Naruto shippuden:</label>
       <select id="rankII" formControlName="rankII">
-        <option value="" disabled>Select Rank II</option>
+        <option value="" disabled>Select Rank in Naruto shippuden</option>
         <option *ngFor="let option of rankIIOptions" [value]="option">{{ option }}</option>
       </select>
       <div *ngIf="characterForm.get('rankII')?.hasError('required') && characterForm.get('rankII')?.touched">
-        Rank II is required.
+        Rank in Naruto shippuden is required.
       </div>
 
       <label for="sex">Sex:</label>
@@ -64,23 +65,29 @@
         Clan is required.
       </div>
 
-      <label for="image">Image:</label>
-      <input type="file" id="image" (change)="handleImageUpload($event)" accept="image/*">
+      <label for="images">Image URL:</label>
+      <input type="text" id="images" formControlName="images">
+      
+      
 
       <button type="submit" [disabled]="characterForm.invalid">Submit</button>
     </form>
   </div>
-
+  
   <div class="character-preview">
-    <h2>Character Preview</h2>
-    <p><strong>Name:</strong> {{ characterForm.get('name')?.value }}</p>
-    <p><strong>Occupation:</strong> {{ characterForm.get('occupation')?.value }}</p>
-    <p><strong>Rank I:</strong> {{ characterForm.get('rankI')?.value }}</p>
-    <p><strong>Rank II:</strong> {{ characterForm.get('rankII')?.value }}</p>
-    <p><strong>Sex:</strong> {{ characterForm.get('sex')?.value }}</p>
-    <p><strong>Status:</strong> {{ characterForm.get('status')?.value }}</p>
-    <p><strong>Clan:</strong> {{ characterForm.get('clan')?.value }}</p>
-    <p><strong>Jutsu:</strong> {{ characterForm.get('jutsu')?.value }}</p>
-    <img [src]="imagePreview" *ngIf="imagePreview" class="image-preview">
+    <div class="info">
+      <h2>Character Preview</h2>
+      <p><strong>Name:</strong> {{ characterForm.get('name')?.value }}</p>
+      <p><strong>Occupation:</strong> {{ characterForm.get('occupation')?.value }}</p>
+      <p><strong>Rank in Naruto:</strong> {{ characterForm.get('rankI')?.value }}</p>
+      <p><strong>Rank in Naruto shippuden:</strong> {{ characterForm.get('rankII')?.value }}</p>
+      <p><strong>Sex:</strong> {{ characterForm.get('sex')?.value }}</p>
+      <p><strong>Status:</strong> {{ characterForm.get('status')?.value }}</p>
+      <p><strong>Clan:</strong> {{ characterForm.get('clan')?.value }}</p>
+      <p><strong>Jutsu:</strong> {{ characterForm.get('jutsu')?.value }}</p>
+    </div>
+    <div class="image">
+      <img [src]="characterForm.get('images')?.value" class="image-preview" *ngIf="characterForm.get('images')?.value">   
+    </div>
   </div>
 </div>

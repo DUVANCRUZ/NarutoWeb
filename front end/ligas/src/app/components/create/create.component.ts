@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { finalize } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-create',
@@ -19,9 +17,10 @@ export class CreateComponent implements OnInit {
   clanOptions: Set<string> = new Set<string>();
   occupationOptions: Set<string> = new Set<string>();
 
-  imagePreview: string | ArrayBuffer | null = null;
-
-  constructor(private fb: FormBuilder, private http: HttpClient, private storage: AngularFireStorage) { }
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.characterForm = this.fb.group({
@@ -33,7 +32,7 @@ export class CreateComponent implements OnInit {
       status: ['', Validators.required],
       clan: ['', Validators.required],
       jutsu: [''],
-      image: [''],
+      images: [''],
     });
 
     this.loadData();
@@ -56,18 +55,9 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  handleImageUpload(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result;
-        this.characterForm.patchValue({
-          image: file,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
+  private resetForm(): void {
+    this.characterForm.reset();
+    this.characterInCreation = null;
   }
 
   submitForm(): void {
@@ -76,34 +66,23 @@ export class CreateComponent implements OnInit {
     }
 
     const formData = this.characterForm.value;
-
-    if (formData.image) {
-      const filePath = `images/${formData.name}_${new Date().getTime()}`;
-      const fileRef = this.storage.ref(filePath);
-      const task = this.storage.upload(filePath, formData.image);
-
-      task.snapshotChanges()
-        .pipe(
-          finalize(() => {
-            fileRef.getDownloadURL().subscribe((url) => {
-              formData.image = url;
-              this.saveDataToBackend(formData);
-            });
-          })
-        )
-        .subscribe();
-        console.log('Data to be sent:', formData)
-    } else {
-      this.saveDataToBackend(formData);
-    }
+    this.saveDataToBackend(formData);
   }
 
   private saveDataToBackend(data: any): void {
     const backendUrl = 'http://localhost:5000/char/create';
 
-    this.http.post(backendUrl, data).subscribe(
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.http.post(backendUrl, data, httpOptions).subscribe(
       (response) => {
         console.log('Data sent successfully:', response);
+        alert("Character created successfully");
+        this.resetForm();
       },
       (error) => {
         console.error('Error sending data:', error);

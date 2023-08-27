@@ -1,9 +1,53 @@
 .container {
     color: white;
+    display: flex;
+    flex-direction: row;
 }
 form{
     display:flex;
     flex-direction: column;
+}
+
+.character-preview { 
+  display:flex;
+  flex-direction: row;
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  border-bottom: 15px solid #ffbf00;
+  border-left: 15px solid #ffbf00;
+  border-right: 15px solid #ffbf00; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ff8800;
+  border-radius: 18px;
+  width: 50%;
+  height: 50%;
+}
+.image {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  width: 50%;
+}
+
+.info{
+  width: 50%;
+
+}
+img{ 
+  border-radius: 18px;
+  border-bottom: 15px solid #188791;
+  border-left: 15px solid #188791;
+  border-right: 15px solid #188791; 
+  width: 200px;
+  height: 200px;
+}
+img:hover{ 
+  border-bottom: 15px solid #00162d;
+    border-left: 15px solid #00162d;
+    border-right: 15px solid #00162d;
+  width: 260px;
+  height: 260px;
 }
 
 select {
