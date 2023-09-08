@@ -1,12 +1,21 @@
+import os
+from dotenv import load_dotenv
 import requests
 from flask import Blueprint, jsonify, request, Response
 from flask_pymongo import MongoClient 
 from bson import json_util
 from bson import ObjectId
 
+# Carga las variables de entorno desde el archivo .env
+load_dotenv()
+
+# Obtiene las variables de entorno
+MONGO_USER = os.getenv("MONGO_USER")
+MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+
 
 # Crear un Blueprint para las rutas relacionadas con los personajes
-connection_str = "mongodb://localhost:27017/"
+connection_str = f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@cluster0.vscntvr.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(connection_str)
 db= client.naruto.char
 char_routes = Blueprint('char_routes', __name__, url_prefix="/char")
