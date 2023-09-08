@@ -72,7 +72,7 @@ def getAppChars():
 
             result.append(obj)
 
-        return result
+        return jsonify(result)
     else:
         return []
 
@@ -119,7 +119,7 @@ def createUser():
             "jutsu": jutsu,
             "clan": clan
         }
-        return response
+        return jsonify(response)
     else:
         # Devolver un mensaje de error si no se proporcionaron todos los datos requeridos
         return jsonify({"message": "Faltan datos requeridos"}), 400
