@@ -24,7 +24,7 @@ export class MyCreationsComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.charactersPerPage;
     const endIndex = startIndex + this.charactersPerPage;
 
-    let url = 'http://localhost:5000/char/';
+    let url = 'https://naruto-back.onrender.com/char/';
     
    
 

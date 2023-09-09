@@ -26,13 +26,13 @@ export class CharactersComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.charactersPerPage;
     const endIndex = startIndex + this.charactersPerPage;
 
-    let url = 'http://localhost:5000/char/app';
+    let url = 'https://naruto-back.onrender.com/char/app';
     
     // Considera los filtros almacenados en la propiedad currentFilters
     if (this.searchQuery) {
-      url = `http://localhost:5000/char/name/${encodeURIComponent(this.searchQuery)}`;
+      url = `https://naruto-back.onrender.com/char/name/${encodeURIComponent(this.searchQuery)}`;
     } else if (Object.keys(this.currentFilters).length > 0) {
-      url = 'http://localhost:5000/char/filter?';
+      url = 'https://naruto-back.onrender.com/char/filter?';
       for (const key in this.currentFilters) {
         if (this.currentFilters[key] !== null) {
           url += `${key}=${encodeURIComponent(this.currentFilters[key])}&`;

@@ -24,7 +24,7 @@ export class FiltersComponent {
   }
 
   fetchOptions() {
-    this.http.get<any[]>('http://localhost:5000/char/app')
+    this.http.get<any[]>('https://naruto-back.onrender.com/char/app')
       .subscribe(data => {
         data.forEach(character => {
           this.rankOptions.add(character.rankI);

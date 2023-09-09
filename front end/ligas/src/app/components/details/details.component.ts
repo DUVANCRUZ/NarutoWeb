@@ -33,7 +33,7 @@ export class DetailsComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       const id = isNaN(Number(idParam)) ? idParam : Number(idParam);
-      const url = `http://localhost:5000/char/${id}`;
+      const url = `https://naruto-back.onrender.com/char/${id}`;
       this.http.get<Character>(url).subscribe((character: Character) => {
         this.character = character;
       });

@@ -43,7 +43,7 @@ export class CreateComponent implements OnInit {
   }
 
   loadData(): void {
-    this.http.get<any[]>('http://localhost:5000/char/app')
+    this.http.get<any[]>('https://naruto-back.onrender.com/char/app')
       .subscribe(data => {
         data.forEach(character => {
           this.rankIOptions.add(character.rankI);
@@ -70,7 +70,7 @@ export class CreateComponent implements OnInit {
   }
 
   private saveDataToBackend(data: any): void {
-    const backendUrl = 'http://localhost:5000/char/create';
+    const backendUrl = 'https://naruto-back.onrender.com/char/create';
 
     const httpOptions = {
       headers: new HttpHeaders({
