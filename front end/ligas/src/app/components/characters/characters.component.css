@@ -6,6 +6,20 @@
   margin-top: 40px;
 }
 
+
+.loading-circle {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+}
+
+.loading-circle img {
+  width: 300px;
+  border-radius: 50%; /* Ajusta el tamaño de la imagen de carga circular */
+}
+
+
 .pagination button {
   background-color:  #00162d; /* Cambia el color de fondo a azul Chidori */
   color: #fff;

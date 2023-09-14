@@ -204,18 +204,18 @@ def characterId(id):
 #search Bar nombre
 @char_routes.route("/name/<name>", methods=["GET"])
 def filterName(name):
-    result= getAppChars()
-    response= []
+    result = getAppChars().json  # Obtener el contenido JSON de la respuesta
+    response = []
 
     for personaje in result:
-       if name.lower() in personaje["name"].lower():
-           response.append(personaje)
+        if name.lower() in personaje["name"].lower():
+            response.append(personaje)
 
-    return response
+    return jsonify(response)
 
 @char_routes.route("/filter", methods=["GET"])
 def filterAndOrder():
-    result = getAppChars()
+    result = getAppChars().json
 
     ranks = request.args.get("ranks")
     sex = request.args.get("sex")

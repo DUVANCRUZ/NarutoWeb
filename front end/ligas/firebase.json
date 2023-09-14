@@ -1,33 +1,30 @@
 {
-    "hosting": {
-      "public": "dist/ligas",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "headers": [
-        {
-          "source": "/images/**",
-          "headers": [
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "http://localhost:4200"
-            }
-          ]
-        }
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    "storage": {
-      "rules": [
-        {
-          "origin": ["http://localhost:4200"],
-          "method": ["GET", "POST"],
-          "maxAgeSeconds": 3600
-        }
-      ]
-    }
+  "hosting": {
+    "public": "dist/ligas",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": [
+      {
+        "origin": [
+          "http://localhost:4200"
+        ],
+        "method": [
+          "GET",
+          "POST"
+        ],
+        "maxAgeSeconds": 3600
+      }
+    ]
   }
-  
+}

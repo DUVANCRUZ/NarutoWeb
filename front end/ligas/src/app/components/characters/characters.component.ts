@@ -13,22 +13,23 @@ export class CharactersComponent implements OnInit {
   totalPages: number = 0;
   visiblePageCount: number = 7;
   searchQuery: string = '';
+  loading: boolean = true; // Variable para rastrear si los personajes se están cargando
 
   constructor(private http: HttpClient) { }
 
-  currentFilters: any = {}; // Agrega esta propiedad para almacenar los filtros actuales
+  currentFilters: any = {};
 
   ngOnInit(): void {
     this.fetchCharacters();
   }
 
   fetchCharacters() {
+    this.loading = true;
     const startIndex = (this.currentPage - 1) * this.charactersPerPage;
     const endIndex = startIndex + this.charactersPerPage;
 
     let url = 'https://naruto-back.onrender.com/char/app';
     
-    // Considera los filtros almacenados en la propiedad currentFilters
     if (this.searchQuery) {
       url = `https://naruto-back.onrender.com/char/name/${encodeURIComponent(this.searchQuery)}`;
     } else if (Object.keys(this.currentFilters).length > 0) {
@@ -44,10 +45,9 @@ export class CharactersComponent implements OnInit {
       .subscribe(data => {
         this.characters = data.slice(startIndex, endIndex);
         this.totalPages = Math.ceil(data.length / this.charactersPerPage);
+        this.loading = false; // Establecer loading en false después de cargar los personajes
       });
   }
-
-
 
   getVisiblePages(): number[] {
     const halfVisiblePages = Math.floor(this.visiblePageCount / 2);
@@ -73,12 +73,12 @@ export class CharactersComponent implements OnInit {
 
   changePage(pageNumber: number) {
     this.currentPage = Math.min(this.totalPages, Math.max(1, pageNumber));
-    this.fetchCharacters(); // Llama a fetchCharacters para cargar los personajes con la página y filtros actuales
+    this.fetchCharacters();
   }
   
   applyFilters(filters: any) {
     this.currentFilters = filters;
-    this.currentPage = 1; // También reinicia la página al aplicar nuevos filtros
+    this.currentPage = 1;
     this.fetchCharacters();
   }
 }
